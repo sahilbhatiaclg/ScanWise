@@ -6,7 +6,7 @@ import { requestOtp, verifyOtp } from '../api/auth';
 import { useAuth } from '../hooks/useAuth';
 
 export function Login({ onNavigate, onLoginSuccess }) {
-  const { loginWithToken } = useAuth();
+  const { loginWithToken, isGuest } = useAuth();
   const [step, setStep] = useState('phone'); // phone | otp
   const [phoneNumber, setPhoneNumber] = useState('');
   const [otp, setOtp] = useState('');
@@ -27,24 +27,28 @@ export function Login({ onNavigate, onLoginSuccess }) {
     e?.preventDefault();
     setError(null);
 
-    // Validate phone number (allows standard international or 10 digits)
-    const cleaned = phoneNumber.trim().replace(/\s+/g, '');
-    if (!cleaned || cleaned.length < 10) {
-      setError('Please enter a valid 10-digit mobile number');
+    // Accept a 10-digit Indian mobile (optionally typed with 0 / 91 / +91) or any +<country code> E.164 number.
+    const cleaned = phoneNumber.trim().replace(/[\s\-()]/g, '');
+    let fullNumber = null;
+    if (cleaned.startsWith('+')) {
+      if (/^\+[1-9]\d{9,14}$/.test(cleaned)) fullNumber = cleaned;
+    } else {
+      const digits = cleaned.replace(/^(?:\+?91|0)(?=\d{10}$)/, '');
+      if (/^[6-9]\d{9}$/.test(digits)) fullNumber = `+91${digits}`;
+    }
+    if (!fullNumber) {
+      setError('Please enter a valid 10-digit mobile number (it should start with 6, 7, 8 or 9)');
       return;
     }
-
-    const fullNumber = cleaned.startsWith('+') ? cleaned : `+91${cleaned}`;
 
     setIsLoading(true);
     try {
       const res = await requestOtp(fullNumber);
       setPhoneNumber(fullNumber);
+      setOtp('');
       setStep('otp');
       setCountdown(60);
-      if (res?.mock_otp_hint) {
-        setInfoMessage(`Mock OTP for testing: ${res.mock_otp_hint}`);
-      }
+      setInfoMessage(res?.mock_otp_hint ? `Demo mode - your OTP is ${res.mock_otp_hint}` : '');
     } catch (err) {
       setError(err.message || 'Failed to dispatch OTP. Please check your number.');
     } finally {
@@ -56,8 +60,8 @@ export function Login({ onNavigate, onLoginSuccess }) {
     e?.preventDefault();
     setError(null);
 
-    if (!otp || otp.length < 4) {
-      setError('Please enter the verification code sent to your phone');
+    if (!/^\d{6}$/.test(otp)) {
+      setError('Please enter the 6-digit verification code sent to your phone');
       return;
     }
 
@@ -82,8 +86,13 @@ export function Login({ onNavigate, onLoginSuccess }) {
       {/* Top Bar */}
       <div>
         <button
-          onClick={() => (step === 'otp' ? setStep('phone') : onNavigate('welcome'))}
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 transition-colors p-1 -ml-1"
+          onClick={() => {
+            setError(null);
+            setInfoMessage('');
+            if (step === 'otp') setStep('phone');
+            else onNavigate(isGuest ? 'home' : 'welcome');
+          }}
+          className="inline-flex items-center gap-1.5 min-h-[44px] min-w-[44px] text-xs font-semibold text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 transition-colors p-1 -ml-1"
         >
           <ArrowLeft className="w-4 h-4" />
           {step === 'otp' ? 'Change Phone Number' : 'Back'}
@@ -106,7 +115,7 @@ export function Login({ onNavigate, onLoginSuccess }) {
         </p>
 
         {error && (
-          <div className="mb-4 p-3 rounded-lg bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/60 text-xs text-rose-700 dark:text-rose-300 flex items-center gap-2">
+          <div role="alert" className="mb-4 p-3 rounded-lg bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/60 text-xs text-rose-700 dark:text-rose-300 flex items-center gap-2">
             <AlertCircle className="w-4 h-4 shrink-0" />
             <span>{error}</span>
           </div>
@@ -121,15 +130,18 @@ export function Login({ onNavigate, onLoginSuccess }) {
         {step === 'phone' ? (
           <form onSubmit={handleSendOtp} className="space-y-4">
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              <label htmlFor="phone" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
                 Phone Number
               </label>
               <div className="relative flex items-center">
                 <input
+                  id="phone"
                   type="tel"
+                  inputMode="tel"
+                  autoComplete="tel"
                   placeholder="98765 43210"
                   value={phoneNumber}
-                  onChange={(e) => setPhoneNumber(e.target.value)}
+                  onChange={(e) => { setPhoneNumber(e.target.value); setError(null); }}
                   className="w-full h-11 px-3.5 rounded-input bg-surface-light-card dark:bg-surface-dark-card border border-slate-300 dark:border-surface-dark-border text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500 font-medium tabular-nums"
                   autoFocus
                 />
@@ -143,15 +155,19 @@ export function Login({ onNavigate, onLoginSuccess }) {
         ) : (
           <form onSubmit={handleVerifyOtp} className="space-y-4">
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              <label htmlFor="otp" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
                 Verification Code
               </label>
               <input
+                id="otp"
                 type="text"
+                inputMode="numeric"
+                autoComplete="one-time-code"
+                pattern="[0-9]*"
                 maxLength={6}
                 placeholder="123456"
                 value={otp}
-                onChange={(e) => setOtp(e.target.value)}
+                onChange={(e) => { setOtp(e.target.value.replace(/\D/g, '')); setError(null); }}
                 className="w-full h-12 text-center tracking-[0.4em] text-lg font-bold rounded-input bg-surface-light-card dark:bg-surface-dark-card border border-slate-300 dark:border-surface-dark-border text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500 tabular-nums"
                 autoFocus
               />
@@ -169,6 +185,7 @@ export function Login({ onNavigate, onLoginSuccess }) {
               ) : (
                 <button
                   type="button"
+                  disabled={isLoading}
                   onClick={handleSendOtp}
                   className="text-xs font-semibold text-brand-700 dark:text-brand-dark hover:underline"
                 >
@@ -185,4 +202,3 @@ export function Login({ onNavigate, onLoginSuccess }) {
     </div>
   );
 }
-

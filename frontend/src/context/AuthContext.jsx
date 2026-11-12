@@ -33,7 +33,7 @@ export function AuthProvider({ children }) {
         const res = await refreshAccessToken();
         if (mounted && res?.access_token) {
           setToken(res.access_token);
-          setRole(res.role || 'user');
+          setRole(res.role === 'guest' ? 'guest' : (res.role || 'user'));
           setUser(res.user || null);
           setApiAuthToken(res.access_token);
         }
@@ -59,27 +59,30 @@ export function AuthProvider({ children }) {
   }, []);
 
   const loginWithToken = (authData) => {
+    if (!authData?.access_token) {
+      throw new Error('Login response did not contain an access token');
+    }
     setToken(authData.access_token);
     setRole(authData.role || 'user');
     setUser(authData.user || null);
     setApiAuthToken(authData.access_token);
   };
 
+  // NOTE: deliberately does NOT touch the global `isLoading` flag - that flag swaps the whole app for a
+  // spinner, which unmounted the Welcome page mid-request and made the button look like it did nothing.
   const continueAsGuest = async (customGuestProfile = null) => {
-    setIsLoading(true);
-    try {
-      const guestData = await startGuestSession();
-      setToken(guestData.access_token);
-      setRole('guest');
-      setUser(null);
-      setApiAuthToken(guestData.access_token);
-      if (customGuestProfile) {
-        updateGuestProfile(customGuestProfile);
-      }
-      return guestData;
-    } finally {
-      setIsLoading(false);
+    const guestData = await startGuestSession();
+    if (!guestData?.access_token) {
+      throw new Error('Guest session could not be created');
     }
+    setToken(guestData.access_token);
+    setRole('guest');
+    setUser(null);
+    setApiAuthToken(guestData.access_token);
+    if (customGuestProfile) {
+      updateGuestProfile(customGuestProfile);
+    }
+    return guestData;
   };
 
   const updateGuestProfile = (profile) => {
@@ -147,4 +150,3 @@ export function useAuth() {
   }
   return context;
 }
-

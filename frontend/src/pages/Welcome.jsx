@@ -21,7 +21,7 @@ export function Welcome({ onNavigate }) {
       }
     } catch (err) {
       console.error('Guest start failed', err);
-      setError('Could not start guest session. Please try again.');
+      setError(err?.message || 'Could not start guest session. Please try again.');
     } finally {
       setIsGuestLoading(false);
     }
@@ -41,7 +41,7 @@ export function Welcome({ onNavigate }) {
         <button
           onClick={toggleTheme}
           aria-label="Toggle Theme"
-          className="w-9 h-9 rounded-lg border border-slate-200 dark:border-surface-dark-border bg-surface-light-card dark:bg-surface-dark-card flex items-center justify-center text-slate-600 dark:text-slate-300"
+          className="w-11 h-11 rounded-lg border border-slate-200 dark:border-surface-dark-border bg-surface-light-card dark:bg-surface-dark-card flex items-center justify-center text-slate-600 dark:text-slate-300"
         >
           {theme === 'dark' ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4" />}
         </button>
@@ -63,7 +63,7 @@ export function Welcome({ onNavigate }) {
         </p>
 
         {error && (
-          <div className="mt-4 p-3 rounded-lg bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/60 text-xs text-rose-700 dark:text-rose-300 flex items-center gap-2 text-left">
+          <div role="alert" className="mt-4 p-3 rounded-lg bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/60 text-xs text-rose-700 dark:text-rose-300 flex items-center gap-2 text-left">
             <AlertCircle className="w-4 h-4 shrink-0" />
             <span>{error}</span>
           </div>

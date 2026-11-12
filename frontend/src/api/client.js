@@ -15,6 +15,7 @@ export function getApiAuthToken() {
 }
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api';
+const REQUEST_TIMEOUT_MS = 10000;
 
 export class ApiError extends Error {
   constructor(code, message, status = 500) {
@@ -41,10 +42,15 @@ export async function apiClient(endpoint, options = {}) {
     headers.set('Content-Type', 'application/json');
   }
 
+  // A hung backend (e.g. cold Azure SQL) must never leave the UI spinning forever.
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), options.timeoutMs ?? REQUEST_TIMEOUT_MS);
+
   const fetchOptions = {
     ...options,
     headers,
     credentials: 'include', // Crucial for refresh cookies
+    signal: controller.signal,
   };
 
   try {
@@ -67,7 +73,11 @@ export async function apiClient(endpoint, options = {}) {
       // Unified backend error format: { error: { code, message } }
       const errObj = (data && data.error) ? data.error : {};
       const code = errObj.code || `HTTP_${response.status}`;
-      const message = errObj.message || data.message || `Request failed with status ${response.status}`;
+      const fallbackMsg =
+        response.status >= 500
+          ? 'The ScanWise server is not responding right now. Please try again in a moment.'
+          : `Request failed with status ${response.status}`;
+      const message = errObj.message || (data && data.message) || fallbackMsg;
       throw new ApiError(code, message, response.status);
     }
 
@@ -76,8 +86,12 @@ export async function apiClient(endpoint, options = {}) {
     if (err instanceof ApiError) {
       throw err;
     }
+    if (err?.name === 'AbortError') {
+      throw new ApiError('TIMEOUT', 'The server took too long to respond. Please try again.', 0);
+    }
     // Network errors or offline states
-    throw new ApiError('NETWORK_ERROR', err.message || 'Cannot reach the ScanWise server', 0);
+    throw new ApiError('NETWORK_ERROR', 'Cannot reach the ScanWise server. Please check your connection.', 0);
+  } finally {
+    clearTimeout(timer);
   }
 }
-

@@ -49,6 +49,16 @@ export function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  // Signed-in users have no business on the login/welcome screens (guests may open login to upgrade).
+  const needsRedirectHome =
+    !isLoading && isAuthenticated && (currentScreen === 'welcome' || (currentScreen === 'login' && isRegisteredUser));
+  useEffect(() => {
+    if (needsRedirectHome) {
+      setCurrentScreen('home');
+      window.location.hash = 'home';
+    }
+  }, [needsRedirectHome]);
+
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-surface-light dark:bg-surface-dark">
@@ -57,8 +67,8 @@ export function App() {
     );
   }
 
-  // If completely unauthenticated, show Welcome or Login screen
-  if (!isAuthenticated) {
+  // Unauthenticated -> Welcome / Login. A guest who taps "Sign In" also lands on Login.
+  if (!isAuthenticated || (isGuest && currentScreen === 'login')) {
     if (currentScreen === 'login') {
       return (
         <Login
@@ -147,4 +157,3 @@ export function App() {
 }
 
 export default App;
-

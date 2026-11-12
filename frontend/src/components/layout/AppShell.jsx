@@ -52,11 +52,10 @@ export function AppShell({ activeTab = 'home', onTabChange, onLoginClick, childr
                     key={item.id}
                     disabled={item.disabled}
                     onClick={() => onTabChange && onTabChange(item.id)}
-                    className={`inline-flex items-center gap-2 px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-colors ${
-                      isActive
+                    className={`inline-flex items-center gap-2 px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-colors ${isActive
                         ? 'bg-brand-50 dark:bg-brand-950/60 text-brand-700 dark:text-brand-dark border border-brand-200 dark:border-brand-800/60'
                         : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-surface-dark-card'
-                    } ${item.disabled ? 'opacity-40 pointer-events-none' : ''}`}
+                      } ${item.disabled ? 'opacity-40 pointer-events-none' : ''}`}
                   >
                     <Icon className="w-4 h-4" />
                     <span>{item.label}</span>
@@ -86,7 +85,7 @@ export function AppShell({ activeTab = 'home', onTabChange, onLoginClick, childr
             <button
               onClick={toggleTheme}
               aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-              className="w-9 h-9 rounded-lg border border-slate-200 dark:border-surface-dark-border bg-slate-50 dark:bg-surface-dark-card text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white flex items-center justify-center transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+              className="w-10 h-10 rounded-lg border border-slate-200 dark:border-surface-dark-border bg-slate-50 dark:bg-surface-dark-card text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white flex items-center justify-center transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
             >
               {theme === 'dark' ? (
                 <Sun className="w-4 h-4 text-amber-400 stroke-[2]" />
@@ -113,4 +112,3 @@ export function AppShell({ activeTab = 'home', onTabChange, onLoginClick, childr
     </div>
   );
 }
-
