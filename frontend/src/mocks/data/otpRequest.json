@@ -1,0 +1,7 @@
+{
+  "status": "success",
+  "message": "OTP sent successfully to registered mobile number",
+  "expires_in_seconds": 300,
+  "mock_otp_hint": "123456"
+}
+

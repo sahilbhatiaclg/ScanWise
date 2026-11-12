@@ -1,0 +1,8 @@
+{
+  "age_group": "adult",
+  "conditions": ["hypertension", "diabetes"],
+  "allergens": ["peanut", "wheat_gluten"],
+  "skin_type": "sensitive",
+  "dietary_preference": "vegetarian"
+}
+

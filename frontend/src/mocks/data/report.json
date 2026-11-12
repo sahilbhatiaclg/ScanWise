@@ -1,0 +1,100 @@
+{
+  "report_id": "rep-7f81a9c2-55d0-4821",
+  "product_name": "Whole Wheat Multigrain Crackers",
+  "product_type": "food",
+  "verdict": "okay",
+  "overall_score": 68,
+  "summary_reason": "High sodium and saturated fats require portion moderation, especially for hypertension profiles.",
+  "created_at": "2026-11-12T07:45:00Z",
+  "guidance": {
+    "max_servings_per_day": 1.5,
+    "days_per_week": 4,
+    "limiting_nutrient": "sodium",
+    "guidance_basis": "rule"
+  },
+  "breakdown": {
+    "safe_count": 4,
+    "adjustable_count": 2,
+    "risk_count": 1,
+    "categories": [
+      { "category": "Base Ingredients", "count": 2 },
+      { "category": "Fats & Oils", "count": 1 },
+      { "category": "Sweeteners", "count": 1 },
+      { "category": "Salts & Minerals", "count": 1 },
+      { "category": "Additives & Preservatives", "count": 2 }
+    ]
+  },
+  "ingredients": [
+    {
+      "ingredient_id": 101,
+      "name": "Whole Wheat Flour",
+      "rating": "safe",
+      "severity": 1,
+      "category": "Grains & Base",
+      "reason": "Wholesome dietary fiber source.",
+      "uses": "Primary structural carbohydrate and nutrient base.",
+      "disadvantages": "Contains gluten (caution for celiac disease)."
+    },
+    {
+      "ingredient_id": 102,
+      "name": "Soy Lecithin",
+      "rating": "safe",
+      "severity": 1,
+      "category": "Emulsifiers",
+      "reason": "Common plant-derived emulsifier; allergen match for severe soy allergy.",
+      "uses": "Stabilizes dough moisture and texture.",
+      "disadvantages": "Minor allergen alert for sensitized individuals."
+    },
+    {
+      "ingredient_id": 103,
+      "name": "Rosemary Extract",
+      "rating": "safe",
+      "severity": 1,
+      "category": "Antioxidants",
+      "reason": "Natural botanical lipid antioxidant.",
+      "uses": "Retards oil rancidity without synthetic preservatives.",
+      "disadvantages": null
+    },
+    {
+      "ingredient_id": 104,
+      "name": "Sugar / Invert Syrup",
+      "rating": "adjustable",
+      "severity": 2,
+      "category": "Sweeteners",
+      "reason": "Elevated glycemic load. Flagged for Diabetes condition.",
+      "uses": "Palatability, color development, and crispness.",
+      "disadvantages": "Excess intake promotes rapid blood glucose spikes and dental decay."
+    },
+    {
+      "ingredient_id": 105,
+      "name": "Palm Olein Oil",
+      "rating": "adjustable",
+      "severity": 2,
+      "category": "Fats & Oils",
+      "reason": "High in palmitic saturated fat (~45%).",
+      "uses": "Affordable frying medium and shortening.",
+      "disadvantages": "Saturated fatty acid content can negatively impact serum lipid profiles."
+    },
+    {
+      "ingredient_id": 106,
+      "name": "Iodised Salt",
+      "rating": "adjustable",
+      "severity": 2,
+      "category": "Salts & Minerals",
+      "reason": "Contributes 680mg sodium per 100g. Flagged for Hypertension.",
+      "uses": "Flavor enhancer and microbiological preservation.",
+      "disadvantages": "Excess sodium intake raises blood pressure."
+    },
+    {
+      "ingredient_id": 107,
+      "name": "Sodium Benzoate (INS 211)",
+      "rating": "risk",
+      "severity": 3,
+      "category": "Preservatives",
+      "reason": "Chemical preservative that can trigger histamine response or hyperactivity in sensitive groups.",
+      "uses": "Inhibits molds and yeasts in shelf-stable snacks.",
+      "disadvantages": "May form trace benzene in presence of ascorbic acid; risk flag for sensitive groups."
+    }
+  ]
+}
+

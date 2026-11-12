@@ -1,0 +1,23 @@
+{
+  "scan_id": "scan-mock-882194",
+  "product_name": "Whole Wheat Multigrain Crackers",
+  "category": "food",
+  "confidence": 0.94,
+  "ingredients": [
+    { "name": "Whole Wheat Flour", "category": "other", "original_text": "Whole wheat flour (62%)" },
+    { "name": "Palm Oil", "category": "fat_oil", "original_text": "Refined palm olein oil" },
+    { "name": "Sugar", "category": "sweetener", "original_text": "Invert sugar syrup" },
+    { "name": "Iodised Salt", "category": "salt", "original_text": "Edible common salt (iodised)" },
+    { "name": "Sodium Benzoate", "category": "preservative", "original_text": "Preservative (INS 211)" },
+    { "name": "Soy Lecithin", "category": "emulsifier", "original_text": "Emulsifier (INS 322)" },
+    { "name": "Rosemary Extract", "category": "antioxidant", "original_text": "Antioxidant (INS 392)" }
+  ],
+  "nutrition": {
+    "energy": 460,
+    "sugar": 14.5,
+    "sodium": 680,
+    "fat": 18.2,
+    "saturated_fat": 8.5
+  }
+}
+

@@ -1,0 +1,33 @@
+{
+  "total": 3,
+  "items": [
+    {
+      "report_id": "rep-7f81a9c2-55d0-4821",
+      "product_name": "Whole Wheat Multigrain Crackers",
+      "product_type": "food",
+      "verdict": "okay",
+      "overall_score": 68,
+      "summary_reason": "High sodium and saturated fats require moderation.",
+      "created_at": "2026-11-12T07:45:00Z"
+    },
+    {
+      "report_id": "rep-9b34c1a8-12e4-4110",
+      "product_name": "Organic Almond Oat Milk",
+      "product_type": "drink",
+      "verdict": "good",
+      "overall_score": 88,
+      "summary_reason": "Clean, fortified plant milk with low added sugars.",
+      "created_at": "2026-11-10T14:20:00Z"
+    },
+    {
+      "report_id": "rep-3a11e8f0-99c2-48df",
+      "product_name": "Ultra-Hydrating Night Serum",
+      "product_type": "skincare",
+      "verdict": "avoid",
+      "overall_score": 42,
+      "summary_reason": "Contains synthetic fragrance and denatured alcohol (risk for sensitive skin).",
+      "created_at": "2026-11-08T09:15:00Z"
+    }
+  ]
+}
+
