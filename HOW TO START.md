@@ -54,7 +54,12 @@ python backend/tests/test_gemini_key.py
 ---
 
 ### 4. Deploying to Vercel
-1. Push project to GitHub.
-2. Import project into Vercel.
-3. Add environment variable: `GEMINI_API_KEY`.
-4. Deploy (managed via `vercel.json` and `api/index.py`).
+This repository is configured for Vercel's **Multi-Service Project** feature:
+1. Push project to GitHub (already pushed).
+2. On Vercel, import the repository `ScanWise`.
+3. Vercel reads `vercel.json` and automatically sets up:
+   - **Frontend Service:** Vite (`frontend/`)
+   - **Backend Service:** Flask (`backend/`)
+4. Add environment variable:
+   - `GEMINI_API_KEY`: Your Google Gemini API key.
+5. Click **Deploy**. Both the React UI and Flask API will be deployed on a single URL.
