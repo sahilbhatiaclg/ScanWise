@@ -1,20 +1,17 @@
 # =============================================================================
 # ScanWise — Python Backend Dependencies
-# Python 3.14 | Flask + pyodbc + Gemini + Azure
-# Pinned to exact versions verified on 2026-10-19
+# Python 3.12+ | Flask + SQLite + Gemini
+# Migrated from Azure SQL to SQLite for local/Vercel deployment
 # =============================================================================
 
 # -----------------------------------------------------------------------------
 # 1. Core Framework
-#    TRD §1: "Python 3 + Flask (blueprints), served by Gunicorn"
 # -----------------------------------------------------------------------------
 Flask==3.1.3
-Werkzeug==3.2.3
+Werkzeug==3.1.9
 
 # -----------------------------------------------------------------------------
 # 2. Security & Auth
-#    TRD §1: "Flask-JWT-Extended, Flask-Limiter, Flask-CORS, Flask-Talisman"
-#    TRD §5: tokens, rate limits, CORS, HSTS, security headers
 # -----------------------------------------------------------------------------
 Flask-JWT-Extended==4.7.4
 Flask-Limiter==4.1.1
@@ -22,69 +19,40 @@ Flask-CORS==6.0.5
 Flask-Talisman==1.1.0
 
 # -----------------------------------------------------------------------------
-# 3. Database — Azure SQL via ODBC
-#    TRD §1: "Azure SQL Database through pyodbc (ODBC Driver 18),
-#             parameterised queries"
-#    NOTE: ODBC Driver 18 for SQL Server must be installed on the OS separately.
-#          Download: https://learn.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-server
+# 3. Database — SQLite (built-in, no external driver needed)
+#    Replaces: pyodbc + Azure SQL
 # -----------------------------------------------------------------------------
-pyodbc==5.3.0
+# sqlite3 is part of the Python standard library — no pip package needed.
 
 # -----------------------------------------------------------------------------
 # 4. AI — Gemini API
-#    TRD §1: "Gemini API through the google-genai Python SDK,
-#             multimodal Flash-class model"
 # -----------------------------------------------------------------------------
 google-genai==2.31.0
 
 # -----------------------------------------------------------------------------
-# 5. Azure Cloud Services
-#    TRD §1: "Azure Cosmos DB, NoSQL API (azure-cosmos SDK)"
-#            "Azure Key Vault through azure-identity"
-# -----------------------------------------------------------------------------
-azure-cosmos==4.17.1
-azure-identity==1.26.0
-
-# -----------------------------------------------------------------------------
-# 6. Monitoring & Logging
-#    TRD §1: "Application Insights plus an audit_log table"
-#    Uses OpenTelemetry (opencensus-ext-azure is deprecated since Sep 2024)
-# -----------------------------------------------------------------------------
-azure-monitor-opentelemetry==1.8.11
-
-# -----------------------------------------------------------------------------
-# 7. Image Processing
-#    TRD §1: "Pillow" — re-encode uploaded images before sending to Gemini
-#    TRD §5: "re-encode with Pillow before sending to AI, processed in memory"
+# 5. Image Processing
 # -----------------------------------------------------------------------------
 Pillow==12.3.0
 
 # -----------------------------------------------------------------------------
-# 8. Validation & Serialization
-#    TRD §1: "Pydantic" — request/response validation
-#    TRD §2.2: "validates it against a fixed Pydantic schema"
+# 6. Validation & Serialization
 # -----------------------------------------------------------------------------
 pydantic==2.14.1
 
 # -----------------------------------------------------------------------------
-# 9. Configuration
-#    Load .env files for local development (connection strings, secrets, keys)
+# 7. Configuration
 # -----------------------------------------------------------------------------
 python-dotenv==1.2.4
 
 # -----------------------------------------------------------------------------
-# 10. Development & Testing
-#     TRD §1: "pytest"
-#     TRD §11: "unit tests, API tests, security checklist pass"
+# 8. Development & Testing
 # -----------------------------------------------------------------------------
 pytest==9.1.1
 pytest-cov==6.2.1
 
 # -----------------------------------------------------------------------------
-# 11. Production Server
-#     TRD §1: "served by Gunicorn"
-#     TRD §1.1: "run Gunicorn with several worker threads"
-#     NOTE: Gunicorn is Linux-only. On Windows dev, Flask's built-in server
-#           is used. Gunicorn runs on Azure App Service (Linux).
+# 9. Production Server
+#    NOTE: Gunicorn is Linux-only. On Windows dev, Flask's built-in server
+#          is used. For Vercel deployment, use the serverless adapter.
 # -----------------------------------------------------------------------------
-gunicorn==26.2.2
+gunicorn==26.2.0

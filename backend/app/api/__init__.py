@@ -1,0 +1,3 @@
+"""
+ScanWise — API blueprint package.
+"""

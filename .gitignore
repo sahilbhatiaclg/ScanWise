@@ -14,8 +14,15 @@ env/
 
 # ---- Environment secrets ----
 .env
-.env.local
-.env.production
+.env.*
+*.env
+
+# ---- Database ----
+instance/
+backend/instance/
+*.db
+*.sqlite
+*.sqlite3
 
 # ---- IDE ----
 .vscode/
