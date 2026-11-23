@@ -1,0 +1,101 @@
+name,category,base_rating,uses,disadvantages,allergens,age_exceptions,condition_risks,aliases
+Sugar,sweetener,adjustable,Sweetener: Sweetens and adds bulk. Benefit: Quick energy,"Excess raises blood sugar, weight gain, tooth decay; also note for: obesity, dental problems",,,diabetes:risk,Sucrose|Cane Sugar
+Salt,salt,adjustable,Mineral/Seasoning: Flavour and preservation. Benefit: Supplies sodium and iodine,Excess raises blood pressure,,,hypertension:risk|kidney_disease:risk|heart_disease:adjustable,Sodium Chloride|Iodised Salt
+Refined Wheat Flour,other,adjustable,Grain/Starch: Base for bakery and noodles. Benefit: Energy source,"Low fibre, high glycaemic, contains gluten; also note for: celiac disease, gluten allergy",wheat_gluten,,diabetes:adjustable,Maida|Enriched Wheat Flour
+Whole Wheat Flour,other,safe,Grain/Starch: Base for bread and roti. Benefit: Fibre and B vitamins,"Contains gluten; also note for: celiac disease, gluten allergy",wheat_gluten,,,Atta
+Palm Oil,fat_oil,adjustable,Oil/Fat: Frying and texture. Benefit: Stable and cheap,High in saturated fat,,,high_cholesterol:risk|heart_disease:adjustable,Palmolein|Vegetable Oil (Palm)
+Sunflower Oil,fat_oil,safe,Oil/Fat: Cooking oil. Benefit: Vitamin E and unsaturated fats,Omega-6 heavy; reheated oil forms harmful compounds,,,,Refined Sunflower Oil
+Partially Hydrogenated Vegetable Fat,fat_oil,risk,Oil/Fat: Shelf life and texture. Benefit: Long shelf life,Trans fats raise LDL cholesterol and heart risk,,,heart_disease:risk|high_cholesterol:risk,Vanaspati|Trans Fat
+High Fructose Corn Syrup,sweetener,risk,Sweetener: Cheap liquid sweetener. Benefit: Sweet taste,"Linked to fatty liver and weight gain; also note for: fatty liver, obesity",,adult:adjustable|old_age:adjustable,diabetes:risk,HFCS|Glucose-Fructose Syrup
+Glucose Syrup,sweetener,adjustable,Sweetener: Sweetener and texture. Benefit: Quick energy,Spikes blood sugar; also note for: obesity,,,diabetes:risk,Corn Syrup
+Maltodextrin,thickener,adjustable,Thickener/Filler: Bulking and texture. Benefit: Quick energy,High glycaemic index spikes sugar,,,diabetes:risk,E1400 family
+Dextrose,sweetener,adjustable,Sweetener: Sweetener and energy. Benefit: Fast energy,Spikes blood sugar,,,diabetes:risk,Glucose
+Citric Acid,acidity_regulator,safe,Acidulant: Sour taste and preservation in food; pH adjuster in skincare. Benefit: Natural preservative,"Can erode tooth enamel; may sting skin at high strength; also note for: acid reflux, sensitive skin",,,,E330
+Ascorbic Acid,antioxidant,safe,Antioxidant: Preserves colour in food; brightens skin. Benefit: Immune support and antioxidant,High doses upset stomach; can sting skin,,,kidney_disease:adjustable,Vitamin C|E300|L-Ascorbic Acid
+Sodium Benzoate,preservative,adjustable,Preservative: Prevents mould and yeast. Benefit: Extends shelf life,"May form benzene with vitamin C; linked to hyperactivity in kids; also note for: asthma, hyperactivity, sensitive skin, benzoate",,adult:safe|old_age:safe,,E211
+Potassium Sorbate,preservative,safe,Preservative: Prevents mould and yeast. Benefit: Low toxicity,Rare gut or skin irritation,,,,E202
+Monosodium Glutamate,flavour,adjustable,Flavour Enhancer: Boosts savoury umami taste. Benefit: Enhances taste,"Headache and flushing in sensitive people; adds sodium; also note for: MSG sensitivity, MSG sensitivity",,adult:safe,hypertension:adjustable,MSG|E621
+Disodium Ribonucleotides,flavour,adjustable,Flavour Enhancer: Boosts savoury taste with MSG. Benefit: Intensifies flavour,"May worsen gout; allergy in some; also note for: gout, asthma",,,,E635|Disodium Inosinate|Disodium Guanylate
+Tartrazine,colour,risk,Colour: Yellow colouring. Benefit: Bright colour,"Hyperactivity in children and allergic reactions; also note for: asthma, aspirin sensitivity, ADHD, azo dye",,adult:adjustable|old_age:adjustable,,E102|Yellow 5
+Sunset Yellow FCF,colour,risk,Colour: Orange colouring. Benefit: Bright colour,"Hyperactivity in children and allergic reactions; also note for: asthma, aspirin sensitivity, ADHD, azo dye",,adult:adjustable|old_age:adjustable,,E110|Yellow 6
+Carmoisine,colour,risk,Colour: Red colouring. Benefit: Bright colour,"Hyperactivity in children and allergic reactions; also note for: asthma, aspirin sensitivity, ADHD, azo dye",,adult:adjustable|old_age:adjustable,,E122|Azorubine
+Brilliant Blue FCF,colour,adjustable,Colour: Blue colouring. Benefit: Poorly absorbed,Rare hypersensitivity; also note for: allergies,,adult:safe|old_age:safe,,E133|Blue 1
+Caramel Colour,colour,adjustable,Colour: Brown colouring. Benefit: Stable colour,By-product 4-MEI is a concern at high intake,,adult:safe|old_age:safe,diabetes:adjustable,E150d|Caramel IV
+Aspartame,sweetener,adjustable,Sweetener: Zero-calorie sweetener. Benefit: Sugar-free sweetness,"Unsafe in PKU; headaches in some people; also note for: phenylketonuria, pregnancy, phenylalanine (PKU)",,,,E951
+Sucralose,sweetener,safe,Sweetener: Zero-calorie sweetener. Benefit: Sugar-free sweetness,May affect gut bacteria; also note for: IBS,,child:adjustable,,E955
+Acesulfame Potassium,sweetener,safe,Sweetener: Zero-calorie sweetener. Benefit: Sugar-free sweetness,Long-term effects debated,,child:adjustable,,E950|Ace-K
+Stevia,sweetener,safe,Sweetener: Natural zero-calorie sweetener. Benefit: Sugar-free sweetness,"Bitter aftertaste; may lower blood pressure; also note for: low blood pressure, diabetes medication",,,,Steviol Glycosides|E960
+Sodium Nitrite,preservative,risk,Preservative: Curing of meat. Benefit: Prevents botulism,"Can form nitrosamines linked to cancer; also note for: cancer risk, migraines",,adult:adjustable|old_age:adjustable,,E250
+Sodium Metabisulphite,preservative,adjustable,Preservative: Prevents browning and spoilage. Benefit: Extends shelf life,"Triggers asthma in sensitive people; also note for: asthma, sulphite allergy",sulphites,,,E223|Sulphites
+Soy Lecithin,emulsifier,safe,Emulsifier: Blends oil and water; skin barrier support. Benefit: Smooth texture,Soy allergen; also note for: soy allergy,soy,,,E322|Lecithin
+Mono- and Diglycerides of Fatty Acids,emulsifier,safe,Emulsifier: Soft texture and mixing. Benefit: Improves texture,May contain trace trans fats; can be animal-derived; also note for: vegetarian diets,,,,E471
+Xanthan Gum,thickener,safe,Thickener: Thickens and stabilises. Benefit: Texture,Bloating in large amounts; also note for: IBS,,,,E415
+Guar Gum,thickener,safe,Thickener: Thickens and adds fibre. Benefit: Soluble fibre,Bloating; choking risk if dry; also note for: swallowing or GI problems,,,,E412
+Carrageenan,thickener,adjustable,Thickener: Gelling in dairy and desserts. Benefit: Texture,Possible gut inflammation concern; also note for: inflammatory bowel disease,,teen:safe|adult:safe,,E407
+Pectin,thickener,safe,Gelling Agent: Gelling in jams. Benefit: Soluble fibre,Mild gas,,,,E440
+Gelatin,thickener,safe,Gelling Agent: Gelling in sweets and desserts. Benefit: Protein source,"Animal-derived; also note for: vegetarian, religious diets",,,,Animal Collagen
+Modified Starch,thickener,safe,Thickener: Thickening and texture. Benefit: Stable texture,High glycaemic in large amounts,,,diabetes:adjustable,E1422|E1442
+Sodium Bicarbonate,acidity_regulator,safe,Raising Agent: Leavening in food; mild exfoliant. Benefit: Antacid,Adds sodium; disrupts skin pH,,,hypertension:adjustable|kidney_disease:adjustable,Baking Soda|E500
+Yeast Extract,flavour,safe,Flavour Enhancer: Savoury flavour. Benefit: Umami taste,"Natural glutamate and sodium; also note for: MSG sensitivity, yeast",,,,Hydrolysed Yeast
+Milk Solids,protein,safe,Protein/Allergen: Protein and calcium. Benefit: Protein and calcium,"Lactose and milk allergen; also note for: lactose intolerance, milk allergy",milk,,,Skimmed Milk Powder|Whey
+Wheat Gluten,protein,adjustable,Protein: Elasticity in dough. Benefit: Protein,"Triggers celiac disease; also note for: celiac disease, gluten allergy",wheat_gluten,,,Vital Wheat Gluten
+Soy Protein Isolate,protein,safe,Protein: High-protein additive. Benefit: Plant protein,"Soy allergen; also note for: soy allergy, thyroid disorders",soy,,,Soya Protein
+Peanut,protein,adjustable,Allergen: Snacks and spreads. Benefit: Protein and healthy fats,Common severe allergen; also note for: peanut allergy,peanut,,,Groundnut
+Cocoa Solids,flavour,safe,Flavour: Chocolate flavour. Benefit: Flavanols,"Contains caffeine and trace heavy metals; also note for: migraine, acid reflux",,,,Cocoa Powder
+Cocoa Butter,fat_oil,safe,Fat/Emollient: Chocolate base; moisturiser. Benefit: Rich emollient,"Can clog pores; also note for: acne-prone skin, cocoa (rare)",,,,Theobroma Cacao Seed Butter
+Vanillin,flavour,safe,Flavour: Vanilla flavour. Benefit: Pleasant taste,Safe at normal levels,,,,Artificial Vanilla Flavour
+Artificial Flavouring Substances,flavour,adjustable,Flavour: Adds flavour. Benefit: Taste,Unclear composition; may hide allergens; also note for: allergies,,adult:safe|old_age:safe,,Nature-Identical Flavour
+Turmeric,other,safe,Spice/Colour: Yellow colour and flavour; skin brightening. Benefit: Anti-inflammatory antioxidant,"Gallbladder issues; stains skin; also note for: gallstones, blood thinners",,,,Curcumin|E100|Curcuma Longa
+Ginger,flavour,safe,Spice: Flavour; skincare extract. Benefit: Nausea relief and digestion,"Heartburn; mild blood thinning; also note for: blood thinners, gallstones",,,,Zingiber Officinale
+Black Pepper,flavour,safe,Spice: Flavour. Benefit: Improves nutrient absorption,Can irritate stomach; also note for: ulcers,,,,Piperine
+Cinnamon (Cassia),flavour,adjustable,Spice: Flavour. Benefit: May support blood sugar,Coumarin can stress liver at high intake; also note for: liver disease,,adult:safe,diabetes:adjustable,Cinnamomum Cassia
+Honey,sweetener,adjustable,Sweetener: Natural sweetener. Benefit: Antioxidants,Still sugar; unsafe for infants under 1 year; also note for: infants,,,diabetes:adjustable,Natural Honey
+Rice Bran Oil,fat_oil,safe,Oil/Fat: Cooking oil. Benefit: Heart-friendly fats,Calorie dense,,,,Oryzanol Oil
+Olive Oil,fat_oil,safe,Oil/Fat: Cooking oil; emollient. Benefit: Monounsaturated fats,Calorie dense; may clog pores; also note for: acne-prone skin,,,,Olea Europaea Fruit Oil
+Coconut Oil,fat_oil,adjustable,Oil/Fat: Cooking oil; moisturiser. Benefit: Medium-chain fats,"High saturated fat; comedogenic; also note for: acne-prone skin, coconut (rare)",,adult:safe,high_cholesterol:adjustable,Cocos Nucifera Oil
+Caffeine,other,adjustable,Stimulant: Energy drinks and eye creams. Benefit: Alertness,"Anxiety, poor sleep, raised heart rate; also note for: anxiety, pregnancy",,child:risk|teen:risk,hypertension:adjustable,"1,3,7-Trimethylxanthine"
+Green Tea Extract,antioxidant,safe,Antioxidant: Antioxidant in food and skincare. Benefit: EGCG antioxidants,High doses may stress liver; also note for: liver disease,,child:adjustable,,Camellia Sinensis Leaf Extract
+Ferrous Sulphate,vitamin_mineral,adjustable,Mineral: Fortification. Benefit: Prevents anaemia,Constipation; overdose toxic to children; also note for: haemochromatosis,,adult:safe,,Iron Fortificant
+Calcium Carbonate,vitamin_mineral,safe,Mineral: Fortification and antacid. Benefit: Bone health,Constipation,,,kidney_disease:adjustable,E170
+Vitamin D3,vitamin_mineral,safe,Vitamin: Fortification. Benefit: Bone and immune health,Toxic at very high doses; also note for: hypercalcaemia,,,,Cholecalciferol
+Vitamin B12,vitamin_mineral,safe,Vitamin: Fortification. Benefit: Nerve and blood health,Rare acne flare,,,,Cyanocobalamin
+Phosphoric Acid,acidity_regulator,adjustable,Acidulant: Tangy taste in colas. Benefit: Sharp flavour,Weakens teeth and bones with heavy intake; also note for: osteoporosis,,,kidney_disease:risk,E338
+Butylated Hydroxyanisole,antioxidant,risk,Antioxidant: Prevents rancidity in fats. Benefit: Longer shelf life,Possible endocrine disruptor; also note for: hormone-sensitive conditions,,adult:adjustable|old_age:adjustable,,E320
+Butylated Hydroxytoluene,antioxidant,adjustable,Antioxidant: Prevents rancidity in fats. Benefit: Longer shelf life,Possible allergen; long-term effects debated; also note for: allergies,,,,BHT|E321
+Tertiary Butylhydroquinone,antioxidant,adjustable,Antioxidant: Prevents rancidity in fried foods. Benefit: Longer shelf life,High doses are harmful; also note for: allergies,,,,TBHQ|E319
+Calcium Propionate,preservative,adjustable,Preservative: Prevents mould in bread. Benefit: Longer shelf life,"Linked to irritability in some children; also note for: migraine, propionate",,adult:safe|old_age:safe,,E282
+Annatto,colour,safe,Colour: Orange-yellow colouring. Benefit: Natural colour,"Rare allergic reactions; also note for: allergies, annatto",,,,E160b|Bixin
+Beta-Carotene,colour,safe,Colour/Antioxidant: Orange colouring; skincare antioxidant. Benefit: Vitamin A precursor,High supplement doses risky for smokers; also note for: smoking,,,,E160a|Provitamin A
+Sorbitol,sweetener,adjustable,Sweetener/Humectant: Sugar-free sweetener; moisturiser. Benefit: Lower glycaemic index,Laxative effect; also note for: IBS,,,,E420
+Glycerin,humectant,safe,Humectant: Retains moisture in food and skincare. Benefit: Hydrates skin,Sticky feel; rare irritation,,,,Glycerol|E422
+Water,other,safe,Solvent: Base of drinks and creams. Benefit: Hydration and carrier,Safe,,,,Aqua|Purified Water
+Sodium Hyaluronate,humectant,safe,Humectant: Holds moisture in skin. Benefit: Plumps and hydrates,Rare irritation,,,,Hyaluronic Acid
+Niacinamide,active,safe,Active: Evens tone and controls oil. Benefit: Improves barrier and pores,Flushing or tingling at high strength; also note for: sensitive skin,,,,Vitamin B3|Nicotinamide
+Salicylic Acid,active,adjustable,Exfoliant: Unclogs pores for acne. Benefit: Clears pores,"Dryness and irritation; not for babies; also note for: sensitive skin, pregnancy, aspirin allergy",,child:risk,,BHA|Beta Hydroxy Acid
+Glycolic Acid,active,adjustable,"Exfoliant: Chemical exfoliation. Benefit: Smoother, brighter skin","Irritation and sun sensitivity; also note for: sensitive skin, eczema",,child:risk,,AHA
+Lactic Acid,active,adjustable,Exfoliant: Gentle exfoliation and hydration. Benefit: Gentler than glycolic acid,Sun sensitivity; also note for: sensitive skin,,child:risk,,Lactic AHA
+Retinol,active,adjustable,Retinoid: Anti-ageing and acne. Benefit: Boosts cell turnover,"Dryness, peeling, sun sensitivity; avoid in pregnancy; also note for: pregnancy, sensitive skin",,child:risk,,Vitamin A
+Retinyl Palmitate,active,adjustable,Retinoid: Mild anti-ageing. Benefit: Gentle vitamin A form,Sun sensitivity; avoid in pregnancy; also note for: pregnancy,,child:risk,,Vitamin A Palmitate
+Benzoyl Peroxide,active,adjustable,Active: Acne treatment. Benefit: Kills acne bacteria,"Dryness, redness; bleaches fabric; also note for: sensitive skin, eczema",,child:risk,,BPO
+Tocopherol,antioxidant,safe,Antioxidant: Antioxidant in oils and creams. Benefit: Protects and moisturises,Can clog pores; rare contact allergy; also note for: acne-prone skin,,,,Vitamin E
+Panthenol,humectant,safe,Humectant: Soothes and hydrates. Benefit: Repairs skin barrier,Rare irritation,,,,Vitamin B5|Provitamin B5
+Ceramide NP,emollient,safe,Barrier Lipid: Restores skin barrier. Benefit: Locks in moisture,Safe,,,,Ceramide 3
+Squalane,emollient,safe,Emollient: Lightweight moisturiser. Benefit: Non-greasy hydration,Safe,,,,Hydrogenated Squalene
+Shea Butter,emollient,safe,Emollient: Rich moisturiser. Benefit: Deep moisture,Heavy; may clog pores; nut-related allergy rare; also note for: acne-prone skin,tree_nut,,,Butyrospermum Parkii Butter
+Aloe Vera,active,safe,Soothing Agent: Calms and hydrates. Benefit: Soothes irritation,"Rare contact allergy; also note for: aloe allergy, aloe",,,,Aloe Barbadensis Leaf Juice
+Zinc Oxide,sunscreen_filter,safe,"UV Filter: Physical sun protection. Benefit: Broad spectrum, gentle",White cast,,,,Mineral Sunscreen
+Titanium Dioxide,sunscreen_filter,adjustable,UV Filter/Colourant: Sunscreen filter and whitener. Benefit: Physical UV protection,Banned as food additive in the EU; avoid inhaling powder,,,,CI 77891|E171
+Avobenzone,sunscreen_filter,adjustable,UV Filter: Chemical UVA protection. Benefit: Broad UVA protection,Unstable; may irritate; also note for: sensitive skin,,,,Butyl Methoxydibenzoylmethane
+Octinoxate,sunscreen_filter,adjustable,UV Filter: Chemical UVB protection. Benefit: UVB protection,Possible hormone disruption; reef concerns; also note for: hormone-sensitive conditions,,,,Ethylhexyl Methoxycinnamate
+Oxybenzone,sunscreen_filter,risk,UV Filter: Chemical UV protection. Benefit: UV protection,"Absorbed through skin; hormone-disruption concern; also note for: allergies, hormone-sensitive conditions",,adult:adjustable|old_age:adjustable,,Benzophenone-3
+Methylparaben,preservative,adjustable,Preservative: Preserves creams. Benefit: Prevents microbes,"Hormone-disruption concern debated; rare allergy; also note for: sensitive skin, parabens",,,,Paraben|E218
+Phenoxyethanol,preservative,adjustable,Preservative: Preserves creams. Benefit: Broad protection,"Irritation at high strength; avoid on baby bottoms; also note for: sensitive skin, eczema",,adult:safe|old_age:safe,,2-Phenoxyethanol
+Fragrance,fragrance,adjustable,Fragrance: Scents the product. Benefit: Pleasant smell,"Common cause of contact allergy; also note for: sensitive skin, eczema, fragrance allergy",fragrance,,,Parfum
+Sodium Lauryl Sulfate,surfactant,adjustable,Surfactant: Cleansing and foaming. Benefit: Strong cleansing,"Strips oils and irritates; also note for: dry skin, eczema, sensitive skin",,,,SLS
+Cocamidopropyl Betaine,surfactant,safe,Surfactant: Mild cleansing and foaming. Benefit: Gentler than SLS,"Contact allergy in some people; also note for: sensitive skin, cocamidopropyl betaine",,,,CAPB
+Mineral Oil,emollient,safe,"Emollient: Seals in moisture. Benefit: Cheap, stable moisturiser",Occlusive; may clog pores if impure; also note for: acne-prone skin,,,,Paraffinum Liquidum
+Petrolatum,emollient,safe,Emollient: Seals in moisture. Benefit: Strong barrier protection,Greasy; may clog pores; also note for: acne-prone skin,,,,Petroleum Jelly
+Dimethicone,emollient,safe,"Emollient: Smooth, slippery finish. Benefit: Smooth feel and barrier",May trap sweat and oil; also note for: acne-prone skin,,,,Silicone
+Cetyl Alcohol,emollient,safe,"Emollient/Thickener: Thickens and softens. Benefit: Moisturising, non-drying",Rare contact allergy; also note for: sensitive skin,,,,Fatty Alcohol
+Propylene Glycol,humectant,adjustable,Humectant/Solvent: Retains moisture; solvent. Benefit: Helps absorption,"Irritation or allergy in some people; also note for: eczema, sensitive skin",,,,E1520
+Hydroquinone,active,risk,Skin Lightener: Treats dark spots. Benefit: Fades pigmentation,"Irritation; risk of ochronosis with long use; also note for: pregnancy, sensitive skin",,adult:adjustable|old_age:adjustable,,HQ

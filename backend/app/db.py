@@ -7,18 +7,37 @@ and init_db() to create/seed the schema on startup.
 import csv
 import os
 import sqlite3
+import tempfile
 from pathlib import Path
 
 from flask import g, current_app
 
-DB_DIR = Path(__file__).resolve().parent.parent.parent  # repo root
-SCHEMA_PATH = DB_DIR / "db" / "schema.sql"
-SEED_CSV = DB_DIR / "db" / "seed" / "ingredients_seed.csv"
+
+def _find_file(rel: str) -> Path:
+    """Find a file either from repo root or from backend folder."""
+    base_backend = Path(__file__).resolve().parent.parent
+    candidates = [
+        base_backend.parent / rel,   # repo_root / rel
+        base_backend / rel,          # backend / rel
+    ]
+    for p in candidates:
+        if p.exists():
+            return p
+    return candidates[0]
 
 
 def _db_path() -> str:
-    """Return the configured database path, defaulting to instance/scanwise.db."""
-    return current_app.config.get("DATABASE") or os.path.join(current_app.instance_path, "scanwise.db")
+    """Return the configured database path. Handles Vercel read-only filesystem."""
+    configured = current_app.config.get("DATABASE")
+    if configured:
+        return configured
+    if os.environ.get("VERCEL"):
+        return os.path.join(tempfile.gettempdir(), "scanwise.db")
+    try:
+        os.makedirs(current_app.instance_path, exist_ok=True)
+        return os.path.join(current_app.instance_path, "scanwise.db")
+    except OSError:
+        return os.path.join(tempfile.gettempdir(), "scanwise.db")
 
 
 def get_db() -> sqlite3.Connection:
@@ -49,28 +68,41 @@ def init_db(app=None):
     """
     target_app = app or current_app._get_current_object()
 
-    os.makedirs(target_app.instance_path, exist_ok=True)
-    db_file = target_app.config.get("DATABASE") or os.path.join(target_app.instance_path, "scanwise.db")
+    configured = target_app.config.get("DATABASE")
+    if configured:
+        db_file = configured
+    elif os.environ.get("VERCEL"):
+        db_file = os.path.join(tempfile.gettempdir(), "scanwise.db")
+    else:
+        try:
+            os.makedirs(target_app.instance_path, exist_ok=True)
+            db_file = os.path.join(target_app.instance_path, "scanwise.db")
+        except OSError:
+            db_file = os.path.join(tempfile.gettempdir(), "scanwise.db")
 
     conn = sqlite3.connect(db_file)
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA foreign_keys = ON")
 
+    schema_file = _find_file("db/schema.sql")
+    seed_file = _find_file("db/seed/ingredients_seed.csv")
+
     # 1. Run the DDL schema
-    conn.executescript(SCHEMA_PATH.read_text(encoding="utf-8"))
+    conn.executescript(schema_file.read_text(encoding="utf-8"))
 
     # 2. Seed ingredients from CSV (skip if already seeded)
     row = conn.execute("SELECT COUNT(*) AS n FROM ingredients").fetchone()
-    if row["n"] == 0 and SEED_CSV.exists():
-        _seed_ingredients(conn)
+    if row["n"] == 0 and seed_file.exists():
+        _seed_ingredients(conn, seed_file)
 
     conn.commit()
     conn.close()
 
 
-def _seed_ingredients(conn: sqlite3.Connection):
+def _seed_ingredients(conn: sqlite3.Connection, seed_path: Path = None):
     """Load ingredients_seed.csv directly into the production tables."""
-    with open(SEED_CSV, newline="", encoding="utf-8-sig") as f:
+    csv_file = seed_path or _find_file("db/seed/ingredients_seed.csv")
+    with open(csv_file, newline="", encoding="utf-8-sig") as f:
         reader = csv.DictReader(f)
         for row in reader:
             name = (row.get("name") or "").strip()
