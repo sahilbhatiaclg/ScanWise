@@ -48,8 +48,12 @@ export function ReviewExtracted({ extractedData, onNavigate, onAnalysisSuccess }
         ingredients,
       });
 
-      // 2. Trigger deterministic analysis
-      const report = await runAnalysis(scanId, isGuest ? guestProfile : null);
+      // 2. Trigger deterministic analysis (send reviewed payload so it works statelessly on Vercel)
+      const report = await runAnalysis(scanId, isGuest ? guestProfile : null, {
+        product_name: productName,
+        category,
+        ingredients,
+      });
       if (onAnalysisSuccess) {
         onAnalysisSuccess(report);
       }

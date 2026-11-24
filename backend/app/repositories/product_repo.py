@@ -36,7 +36,7 @@ def create_product(phash: str, product_type_code: str, label_name: str | None = 
 def add_product_ingredient(product_id: int, ingredient_id: int, position: int):
     db = get_db()
     db.execute(
-        "INSERT INTO product_ingredients (product_id, ingredient_id, position) VALUES (?, ?, ?)",
+        "INSERT OR IGNORE INTO product_ingredients (product_id, ingredient_id, position) VALUES (?, ?, ?)",
         (product_id, ingredient_id, position),
     )
     db.commit()

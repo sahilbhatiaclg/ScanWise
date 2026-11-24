@@ -23,8 +23,17 @@ def save_report(user_id: int, product_name: str, product_type: str,
     """
     db = get_db()
 
+    # Deduplicate by ingredient_id so SQLite UNIQUE constraints never fail
+    unique_ingredients = []
+    seen_ids = set()
+    for ing in personalised_ingredients:
+        iid = ing.get("ingredient_id")
+        if iid is not None and iid not in seen_ids:
+            seen_ids.add(iid)
+            unique_ingredients.append(ing)
+
     # Compute product hash from normalised names + type
-    norm_names = [i["normalized_name"] for i in personalised_ingredients if i.get("normalized_name")]
+    norm_names = [i["normalized_name"] for i in unique_ingredients if i.get("normalized_name")]
     phash = compute_product_hash(norm_names, product_type)
 
     try:
@@ -35,7 +44,7 @@ def save_report(user_id: int, product_name: str, product_type: str,
         else:
             pid = product_repo.create_product(phash, product_type, label_name=product_name)
             # Add product-ingredient links
-            for idx, ing in enumerate(personalised_ingredients, start=1):
+            for idx, ing in enumerate(unique_ingredients, start=1):
                 product_repo.add_product_ingredient(pid, ing["ingredient_id"], idx)
 
         # 2. Create report
@@ -53,7 +62,7 @@ def save_report(user_id: int, product_name: str, product_type: str,
         )
 
         # 3. Add report items
-        for ing in personalised_ingredients:
+        for ing in unique_ingredients:
             report_repo.add_report_item(
                 report_id=report["report_id"],
                 ingredient_id=ing["ingredient_id"],

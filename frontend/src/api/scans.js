@@ -31,13 +31,13 @@ export async function patchScanExtracted(scanId, corrections) {
   });
 }
 
-export async function analyzeScan(scanId, guestProfile = null) {
+export async function analyzeScan(scanId, guestProfile = null, scanPayload = null) {
   if (isMockEnabled()) {
     await new Promise((r) => setTimeout(r, 1200));
     return mockDb.report;
   }
 
-  const payload = {};
+  const payload = { ...(scanPayload || {}) };
   if (guestProfile) {
     payload.guest_profile = guestProfile;
   }

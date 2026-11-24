@@ -53,7 +53,7 @@ export function useScan() {
     }
   };
 
-  const runAnalysis = async (scanId, guestOverride = null) => {
+  const runAnalysis = async (scanId, guestOverride = null, scanPayload = null) => {
     try {
       setError(null);
       setStage('checking_ingredients');
@@ -66,7 +66,7 @@ export function useScan() {
       setStageMessage('Synthesizing consumption guidance and visual verdict...');
 
       const activeGuestProfile = isGuest ? (guestOverride || guestProfile) : null;
-      const reportResult = await analyzeScan(scanId, activeGuestProfile);
+      const reportResult = await analyzeScan(scanId, activeGuestProfile, scanPayload);
 
       setReport(reportResult);
       setStage('complete');

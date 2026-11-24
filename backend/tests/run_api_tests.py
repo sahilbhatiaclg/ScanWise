@@ -186,6 +186,50 @@ class TestScanWiseAPI(unittest.TestCase):
         self.assertIsInstance(report["ingredients"], list)
         self.assertGreater(len(report["ingredients"]), 0)
 
+    def test_06_duplicate_ingredients_verified_user_report(self):
+        """Verified user analyzing a 33-ingredient label with duplicates & unknown spices must succeed and save report."""
+        self.client.post("/api/auth/otp/request", json={"phone_number": "9876543211"})
+        verify_resp = self.client.post("/api/auth/otp/verify", json={
+            "phone_number": "9876543211",
+            "otp": "123456",
+        })
+        token = verify_resp.get_json()["access_token"]
+        headers = {"Authorization": f"Bearer {token}"}
+
+        # Exact 33-ingredient list with duplicates (Refined wheat flour, Palm oil, Iodised salt, Wheat gluten)
+        maggi_33_ingredients = [
+            "Refined wheat flour (Maida)", "Palm oil", "Iodised salt", "Wheat gluten",
+            "Thickeners (508 & 412)", "Acidity regulators (501(i) & 500(i))",
+            "Humectant (451(i))", "Onion powder", "Coriander powder",
+            "Red chilli powder", "Turmeric powder", "Garlic powder", "Cumin powder",
+            "Aniseed powder", "Ginger powder", "Fenugreek powder",
+            "Black pepper powder", "Roasted onion powder", "Clove powder",
+            "Green cardamom powder", "Nutmeg powder", "Hydrolysed groundnut protein",
+            "Refined wheat flour (Maida)", "Sugar", "Starch", "Palm oil",
+            "Iodised salt", "Thickener (508)", "Acidity regulator (330)",
+            "Flavour enhancer (635)", "Colour (150d)", "Mineral", "Wheat gluten",
+        ]
+
+        # Call /analyze directly with a stateless scan_id (simulates Vercel routing to a different container)
+        resp = self.client.post(
+            "/api/scans/stateless-vercel-scan-id/analyze",
+            headers=headers,
+            json={
+                "product_name": "MAGGI Masala Noodles",
+                "category": "food",
+                "ingredients": maggi_33_ingredients,
+            },
+        )
+        self.assertEqual(resp.status_code, 200, f"Analyze failed: {resp.get_data(as_text=True)}")
+        report = resp.get_json()
+        self.assertIsNotNone(report.get("report_id"))
+        self.assertIn(report["verdict"], ("good", "okay", "avoid"))
+        self.assertGreater(len(report["ingredients"]), 0)
+
+        # Verify saved report can be fetched from History
+        hist_resp = self.client.get(f"/api/reports/{report['report_id']}", headers=headers)
+        self.assertEqual(hist_resp.status_code, 200)
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

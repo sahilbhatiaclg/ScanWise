@@ -36,7 +36,7 @@ def add_report_item(report_id: int, ingredient_id: int, rating_code: str, reason
     if not rat:
         raise ValueError(f"Unknown rating: {rating_code}")
     db.execute(
-        "INSERT INTO report_items (report_id, ingredient_id, rating_id, reason) VALUES (?, ?, ?, ?)",
+        "INSERT OR IGNORE INTO report_items (report_id, ingredient_id, rating_id, reason) VALUES (?, ?, ?, ?)",
         (report_id, ingredient_id, rat["rating_id"], reason),
     )
     db.commit()

@@ -117,11 +117,12 @@ def analyze_scan(scan_id: str):
     role = claims.get("role", "guest")
     user_identity = get_jwt_identity()
 
-    extraction = _get_scan(scan_id)
-    if not extraction:
-        return jsonify({"error": {"code": "NOT_FOUND", "message": "Scan not found. Upload first."}}), 404
-
     body = request.get_json(silent=True) or {}
+    extraction = _get_scan(scan_id)
+    if not extraction and not body.get("ingredients"):
+        return jsonify({"error": {"code": "NOT_FOUND", "message": "Scan not found. Upload first."}}), 404
+    extraction = extraction or {}
+
     raw_ingredients = body.get("ingredients", extraction.get("ingredients", []))
     product_name = body.get("product_name", extraction.get("product_name") or "Unknown Product")
     product_type = body.get("product_type") or body.get("category") or extraction.get("product_type", "food")
