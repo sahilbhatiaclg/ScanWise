@@ -70,14 +70,24 @@ def analyze_unknown_ingredients(unknown_names: list[str]) -> list[dict]:
 
     try:
         from google import genai
+        from .extraction_service import GEMINI_MODELS
 
-        client = genai.Client(api_key=api_key)
+        client = genai.Client(api_key=api_key.strip())
 
         prompt = INGREDIENT_ANALYSIS_PROMPT.format(ingredients=", ".join(unknown_names))
-        response = client.models.generate_content(
-            model="gemini-3.8-flash",
-            contents=prompt,
-        )
+        response = None
+        for model_name in GEMINI_MODELS:
+            try:
+                response = client.models.generate_content(
+                    model=model_name,
+                    contents=prompt,
+                )
+                break
+            except Exception as model_err:
+                logger.warning("Ingredient model %s failed: %s", model_name, model_err)
+                continue
+        if response is None:
+            raise RuntimeError("All Gemini models failed for ingredient analysis")
 
         text = response.text.strip()
         if text.startswith("```"):

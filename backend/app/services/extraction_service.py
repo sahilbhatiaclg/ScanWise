@@ -1,9 +1,9 @@
 """
 ScanWise — Extraction service.
 
-Sends a label image to Gemini and returns structured extraction data.
-Includes model fallbacks and graceful demo extraction so that temporary
-Google Cloud 503 spikes or missing keys never crash the user experience.
+Sends a label image to Gemini Vision and returns structured extraction data.
+Uses a prioritized list of active Gemini Flash models so temporary 503 spikes
+on one model automatically fall back to another live model.
 """
 import base64
 import json
@@ -15,17 +15,19 @@ from flask import current_app
 logger = logging.getLogger(__name__)
 
 GEMINI_MODELS = [
+    "gemini-3.6-flash",
+    "gemini-3.5-flash",
+    "gemini-3.5-flash-lite",
     "gemini-3.8-flash",
-    "gemini-2.5-flash",
-    "gemini-1.5-flash",
+    "gemini-3.7-flash",
 ]
 
-EXTRACTION_PROMPT = """You are a product label reader. Analyze this product back-label image and extract:
+EXTRACTION_PROMPT = """You are a product label reader. Carefully read the attached product back-label image and extract:
 
-1. product_name: The product name if visible on the label
+1. product_name: The exact product name if visible on the label (e.g. "Maggi 2-Minute Noodles"), otherwise a descriptive name based on the label text
 2. product_type: One of "food", "drink", "skincare", "other"
-3. ingredients: A flat list of individual ingredient names exactly as printed
-4. nutrition: A dict of nutrient amounts per serving, e.g. {"sugar": 12.5, "sodium": 400, "fat": 8.0, "saturated_fat": 3.0, "caffeine": 0, "energy": 250}
+3. ingredients: A flat list of individual ingredient names as printed on the label
+4. nutrition: A dict of nutrient amounts per serving if visible, e.g. {"sugar": 12.5, "sodium": 400, "fat": 8.0, "saturated_fat": 3.0, "caffeine": 0, "energy": 250}
 5. allergen_statement: Any allergen warnings text
 6. warnings: Any warning text
 7. confidence: A float 0.0–1.0 of how confident you are in the extraction
@@ -45,6 +47,7 @@ Return ONLY valid JSON matching this exact schema:
 SAMPLE_LABEL_EXTRACTION = {
     "product_name": "Packaged Whole Wheat Biscuit",
     "product_type": "food",
+    "category": "food",
     "ingredients": [
         "Whole Wheat Flour",
         "Sugar",
@@ -94,7 +97,6 @@ def extract_from_image(image_bytes: bytes) -> dict:
     image_b64 = base64.b64encode(image_bytes).decode("utf-8")
 
     last_error = None
-    # Try models in priority order to handle temporary 503 or model migration
     for model_name in GEMINI_MODELS:
         try:
             response = client.models.generate_content(
@@ -122,14 +124,19 @@ def extract_from_image(image_bytes: bytes) -> dict:
 
             parsed = json.loads(text)
             if "ingredients" in parsed and isinstance(parsed["ingredients"], list):
+                ptype = parsed.get("product_type", "food")
+                if ptype not in ("food", "drink", "skincare", "other"):
+                    ptype = "food"
                 return {
                     "product_name": parsed.get("product_name") or "Scanned Product",
-                    "product_type": parsed.get("product_type", "food"),
+                    "product_type": ptype,
+                    "category": ptype,
                     "ingredients": parsed["ingredients"],
                     "nutrition": parsed.get("nutrition"),
                     "allergen_statement": parsed.get("allergen_statement"),
                     "warnings": parsed.get("warnings"),
                     "confidence": float(parsed.get("confidence", 0.9)),
+                    "model_used": model_name,
                 }
 
         except Exception as e:

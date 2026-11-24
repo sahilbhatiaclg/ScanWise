@@ -16,12 +16,9 @@ export const mockDb = {
 
 /**
  * Returns true if mock mode is active.
- * Defaults to true in development so the UI works out-of-the-box even when
- * the backend or Azure database is not currently running.
+ * Defaults to false so deployed builds (Vercel) and local dev always call the real backend
+ * unless VITE_USE_MOCKS is explicitly set to 'true'.
  */
 export const isMockEnabled = () => {
-  if (import.meta.env.VITE_USE_MOCKS === 'false') {
-    return false;
-  }
-  return true;
+  return import.meta.env.VITE_USE_MOCKS === 'true';
 };

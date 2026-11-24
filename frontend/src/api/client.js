@@ -15,7 +15,7 @@ export function getApiAuthToken() {
 }
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api';
-const REQUEST_TIMEOUT_MS = 10000;
+const REQUEST_TIMEOUT_MS = 60000;
 
 export class ApiError extends Error {
   constructor(code, message, status = 500) {
