@@ -17,8 +17,11 @@ def create_app(config_name: str | None = None) -> Flask:
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_object(config_by_name.get(config_name, config_by_name["development"]))
 
-    # Ensure instance folder exists
-    os.makedirs(app.instance_path, exist_ok=True)
+    # Ensure instance folder exists (skip on read-only serverless filesystems like Vercel)
+    try:
+        os.makedirs(app.instance_path, exist_ok=True)
+    except OSError:
+        pass
 
     # Middleware (CORS + Security headers)
     init_app_middleware(app)
